@@ -1,0 +1,23 @@
+<h2>Вход</h2>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  <p>
+    <mat-form-field>
+      <input matInput placeholder="Username" formControlName="username" required (click)="removeError()">
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field>
+      <input matInput placeholder="Пароль" [type]="hide ? 'password' : 'text'" formControlName="password" required  (click)="removeError()">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Скрыть пароль'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </p>
+  <div>
+    <button mat-raised-button [disabled]="loading">
+      Войти
+    </button>
+    <a routerLink="/signup" mat-button>Регистрация</a>
+  </div>
+</form>

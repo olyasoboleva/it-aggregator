@@ -1,0 +1,104 @@
+<h2>Регистрация</h2>
+<mat-vertical-stepper linear=true>
+  <mat-step [editable]=false>
+    <ng-template matStepLabel>Тип аккаунта</ng-template>
+    <p>
+      <mat-radio-group aria-label="Выберите тип аккаунта" (change)="isAttendee=!isAttendee">
+        <mat-radio-button value="1" checked="true">Участник</mat-radio-button>
+        <mat-radio-button value="2" >Организация</mat-radio-button>
+      </mat-radio-group>
+    </p>
+    <div>
+      <button mat-button matStepperNext>Далее</button>
+    </div>
+  </mat-step>
+  <mat-step [stepControl]="isAttendee ? attForm : orgForm">
+    <form [formGroup]="attForm" *ngIf="isAttendee">
+      <ng-template matStepLabel>Подробная информация</ng-template>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="Фамилия" formControlName="surname" required>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="Имя" formControlName="name" required>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="E-mail" formControlName="email" required email=true>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="О себе" formControlName="info" maxlength="256" #info>
+          <mat-hint align="end">{{info.value.length}} / 256</mat-hint>
+        </mat-form-field>
+      </p>
+      <div>
+        <button mat-button matStepperNext (click)="onClick()">Далее</button>
+      </div>
+    </form>
+
+    <form [formGroup]="orgForm" *ngIf="!isAttendee">
+      <ng-template matStepLabel>Подробная информация</ng-template>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="Наименование организации" formControlName="orgName" required>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="E-mail" formControlName="email" required email=true>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="Телефон" formControlName="phone" required>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="Подробности" formControlName="details" maxlength="256" #details>
+          <mat-hint align="end">{{details.value.length}} / 256</mat-hint>
+        </mat-form-field>
+      </p>
+      <div>
+        <button mat-button matStepperNext (click)="onClick()">Далее</button>
+      </div>
+    </form>
+
+  </mat-step>
+  <mat-step [stepControl]="authForm">
+    <form [formGroup]="authForm">
+      <ng-template matStepLabel>Учетная запись</ng-template>
+      <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="Логин" formControlName="username" required (click)="error=''"><br/>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="Пароль" [type]="hide ? 'password' : 'text'" formControlName="password" required minlength="6">
+          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Скрыть пароль'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="Подтверждение пароля" formControlName="confirmPassword" required [errorStateMatcher]="matcher" [type]="'password'">
+          <mat-error *ngIf="authForm.hasError('notSame')">
+            Пароли не совпадают
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <div>
+        <button mat-button matStepperPrevious>Назад</button>
+        <button mat-raised-button matStepperNext (click)="onSubmit()">Зарегистрироваться</button>
+      </div>
+    </form>
+  </mat-step>
+</mat-vertical-stepper>
