@@ -5,12 +5,14 @@ import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import {AuthGuard} from './_helpers/auth.guard';
 import {EventListComponent} from './event-list/event-list.component';
+import {EventDetailsComponent} from './event-details/event-details.component';
 
 const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'event-list', component: EventListComponent },
+  { path: 'event/:id', component: EventDetailsComponent},
 
   // otherwise redirect to home
   { path: '**', redirectTo: 'event-list' }

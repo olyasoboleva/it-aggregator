@@ -1,3 +1,32 @@
-<p>
-  event-list works!
-</p>
+<H2>Ближайшие события:</H2>
+<H4>Фильтры</H4>
+<mat-form-field>
+  <mat-label>Город</mat-label>
+  <mat-select [(ngModel)]="cityFilter">
+    <mat-option>None</mat-option>
+    <mat-option *ngFor="let city of cities" [value]="city">{{city}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<div>
+  <mat-checkbox *ngFor="let type of eventTypes" [(ngModel)]="type.checked">{{type.value}}</mat-checkbox>
+</div>
+<div>
+  <button mat-raised-button (click)="filterEvents()">
+    Найти
+  </button>
+</div>
+<div class="cardList">
+  <mat-card class="cardListItem" *ngFor="let event of eventsFiltered">
+    <mat-card-header>
+      <mat-card-title>{{event.name}}</mat-card-title>
+      <mat-card-subtitle>{{event.type}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Дата проведения: {{event.start_date}}</p>
+      <p>Город: {{event.city}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button [routerLink]="['/event', event.event_id]">Подробнее</a>
+    </mat-card-actions>
+  </mat-card>
+</div>

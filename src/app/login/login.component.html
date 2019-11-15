@@ -8,7 +8,7 @@
   </p>
   <p>
     <mat-form-field>
-      <input matInput placeholder="Пароль" [type]="hide ? 'password' : 'text'" formControlName="password" required  (click)="removeError()">
+      <input matInput placeholder="Пароль" [type]="hide ? 'password' : 'text'" formControlName="password" required  (click)="removeError()" >
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Скрыть пароль'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { appRoutingModule } from './app.routing';
@@ -10,9 +10,19 @@ import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatRadioModule, MatStepperModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule, MatCheckboxModule, MatChipsModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatRadioModule, MatSelectModule,
+  MatStepperModule
+} from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 import { EventListComponent } from './event-list/event-list.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import { EventDetailsComponent } from './event-details/event-details.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +32,7 @@ import { EventListComponent } from './event-list/event-list.component';
     ProfileComponent,
     HeaderComponent,
     EventListComponent,
+    EventDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +45,12 @@ import { EventListComponent } from './event-list/event-list.component';
     MatButtonModule,
     NoopAnimationsModule,
     MatIconModule,
-    MatRadioModule
+    MatRadioModule,
+    FlexLayoutModule,
+    MatCardModule,
+    MatSelectModule,
+    FormsModule,
+    MatCheckboxModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

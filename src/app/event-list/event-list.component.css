@@ -1,0 +1,20 @@
+.cardList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: space-around;
+}
+/* Column Gap */
+.cardList > * {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+.cardList > *:not(:last-child) {
+  margin-right: 32px;
+}
+/* Item sizing */
+.cardListItem {
+  flex: 0 1 calc(33.3% - 32px);
+}
