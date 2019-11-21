@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {MatStepperModule} from '@angular/material/stepper';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {AuthenticationService} from '../_services/authentication.service';
-import {MyErrorStateMatcher} from '../_helpers/errors.state.matcher';
-import {UserService} from '../_services/user.service';
-import {User} from '../classes/user';
-import {Attendee} from '../classes/attendee';
-import {Organization} from '../classes/organization';
+import {AuthenticationService} from '../../_services/authentication.service';
+import {MyErrorStateMatcher} from '../../_helpers/errors.state.matcher';
+import {UserService} from '../../_services/user.service';
+import {User} from '../../classes/user';
+import {Attendee} from '../../classes/attendee';
+import {Organization} from '../../classes/organization';
 import {first} from 'rxjs/operators';
 
 @Component({
@@ -16,6 +15,7 @@ import {first} from 'rxjs/operators';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  currentUser: any;
   orgForm: FormGroup;
   attForm: FormGroup;
   authForm: FormGroup;
@@ -26,18 +26,21 @@ export class SignupComponent implements OnInit {
   user = new User();
   attendee = new Attendee();
   organization = new Organization();
+  fileName: string;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private authenticationService: AuthenticationService,
               private userService: UserService) {
-      // redirect to home if already logged in
-      if (this.authenticationService.currentUserValue) {
-        this.router.navigate(['/']);
-      }
   }
 
   ngOnInit() {
+    this.authenticationService.currentUser.subscribe(user => this.currentUser = user);
+    this.fileName = 'Изображение не выбрано';
+    // redirect to home if already logged in
+    if (this.currentUser) {
+      this.router.navigate(['/']);
+    }
     this.orgForm = this.formBuilder.group({
       orgName: ['', Validators.required],
       email: ['', Validators.required],
@@ -59,7 +62,7 @@ export class SignupComponent implements OnInit {
     }, {validator: this.checkPasswords});
   }
 
-  checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+  checkPasswords(group: FormGroup) {
     const pass = group.get('password').value;
     const confirmPass = group.get('confirmPassword').value;
     if (confirmPass.length === 0 || pass.length === 0) { return null; }
@@ -110,5 +113,4 @@ export class SignupComponent implements OnInit {
           }
         });
   }
-
 }

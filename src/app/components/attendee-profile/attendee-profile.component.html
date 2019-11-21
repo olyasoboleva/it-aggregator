@@ -1,0 +1,8 @@
+<p>
+  <input
+    style="display: none"
+    type="file" (change)="onFileChanged($event)"
+    #fileInput>
+  <button mat-stroked-button (click)="fileInput.click()">Фотография профиля</button>
+  {{fileName}}
+</p>

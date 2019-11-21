@@ -4,15 +4,16 @@ import {AuthenticationService} from '../_services/authentication.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
+  currentUser: any;
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService
-  ) {}
+  ) {
+    this.authenticationService.currentUser.subscribe(user => this.currentUser = user);
+  }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const currentUser = this.authenticationService.currentUserValue;
-    if (currentUser) {
-      // authorised so return true
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.currentUser) {
       return true;
     }
 

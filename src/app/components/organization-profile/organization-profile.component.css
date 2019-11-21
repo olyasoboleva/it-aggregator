@@ -1,0 +1,49 @@
+.container {
+  overflow: hidden;
+  width: 1000px;
+}
+
+.box {
+  white-space: nowrap;
+  width: 100%;
+}
+
+.box div {
+  width: 500px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.info-block {
+  flex-wrap: wrap;
+}
+
+.info-block div {
+  display: block;
+}
+
+.info-row div {
+  vertical-align: top;
+  display: inline-block;
+}
+
+.info-row div:first-child {
+  width: 200px;
+}
+
+.info-row div:last-child {
+  width: 300px;
+}
+
+#event-description {
+  border: none;
+  background: rgba(0, 0, 0, 0);
+  outline: 0;
+  cursor: text;
+}
+
+img {
+  height: 200px;
+  width: 200px;
+}
+

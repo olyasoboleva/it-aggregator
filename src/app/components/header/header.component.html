@@ -1,0 +1,20 @@
+<nav>
+  <div class="header-right">
+    <div *ngIf="!currentUser">
+      <a routerLink="/event-list">Мероприятия</a>
+      <a (click)="logout()">Вход</a>
+    </div>
+    <div *ngIf="currentUser && currentUser.type">
+      <a routerLink="/event-list">Мероприятия</a>
+      <a routerLink="/">Чат</a>
+      <a routerLink="/attendee-profile">Профиль</a>
+      <a (click)="logout()">Выйти</a>
+    </div>
+    <div *ngIf="currentUser && !currentUser.type">
+      <a routerLink="/event-list">Мероприятия</a>
+      <a routerLink="/">Создать мероприятие</a>
+      <a routerLink="/organization-profile">Профиль</a>
+      <a (click)="logout()">Выйти</a>
+    </div>
+  </div>
+</nav>

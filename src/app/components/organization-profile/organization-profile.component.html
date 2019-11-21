@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="box">
+    <div>
+      <p><img [src]="imgUrl"/></p>
+      <p *ngIf="!edit">
+        <button mat-raised-button (click)="edit = true">Редактировать</button>
+      </p>
+      <p *ngIf="edit">
+        <input
+          style="display: none"
+          type="file" (change)="onFileChanged($event)"
+          #fileInput>
+        <button mat-stroked-button (click)="fileInput.click()">Загрузить фотографию</button>
+      </p>
+    </div>
+    <div class="info-block">
+      <H2>{{organization.name}}</H2>
+      <div class="info-header">
+        <h4>Информация</h4>
+      </div>
+      <div class="info-row">
+        <div>Телефон:</div>
+        <div>{{organization.phone}}</div>
+      </div>
+      <div class="info-row">
+        <div>"Электронная почта": </div>
+        <div>{{organization.email}}</div>
+      </div>
+      <div class="info-row">
+        <div>Описание: </div>
+        <div><textarea id="event-description" readonly="!edit" rows="10">{{organization.details}}</textarea></div>
+      </div>
+    </div>
+  </div>
+  <p *ngIf="edit">
+    <button mat-raised-button (click)="cancel()">Отменить</button>
+    <button mat-raised-button>Сохранить</button>
+  </p>
+</div>
+
+

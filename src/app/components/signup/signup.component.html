@@ -13,8 +13,8 @@
     </div>
   </mat-step>
   <mat-step [stepControl]="isAttendee ? attForm : orgForm">
+    <ng-template matStepLabel>Подробная информация</ng-template>
     <form [formGroup]="attForm" *ngIf="isAttendee">
-      <ng-template matStepLabel>Подробная информация</ng-template>
       <p>
         <mat-form-field>
           <input matInput placeholder="Фамилия" formControlName="surname" required>
@@ -42,7 +42,6 @@
     </form>
 
     <form [formGroup]="orgForm" *ngIf="!isAttendee">
-      <ng-template matStepLabel>Подробная информация</ng-template>
       <p>
         <mat-form-field>
           <input matInput placeholder="Наименование организации" formControlName="orgName" required>

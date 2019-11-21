@@ -19,14 +19,14 @@
   <mat-card class="cardListItem" *ngFor="let event of eventsFiltered">
     <mat-card-header>
       <mat-card-title>{{event.name}}</mat-card-title>
-      <mat-card-subtitle>{{event.type}}</mat-card-subtitle>
+      <mat-card-subtitle>{{event.eventType}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <p>Дата проведения: {{event.start_date}}</p>
+      <p>Дата проведения: {{event.startDate.toLocaleDateString()}}</p>
       <p>Город: {{event.city}}</p>
     </mat-card-content>
     <mat-card-actions>
-      <a mat-button [routerLink]="['/event', event.event_id]">Подробнее</a>
+      <a mat-button [routerLink]="['/event', event.eventId]">Подробнее</a>
     </mat-card-actions>
   </mat-card>
 </div>

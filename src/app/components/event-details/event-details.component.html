@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="box">
+    <div>
+      <p><img src="https://en.meming.world/images/en/thumb/6/6e/Surprised_Pikachu.jpg/300px-Surprised_Pikachu.jpg" width="200" height="200" alt=""></p>
+      <div class="user-status" *ngIf="currentUser && currentUser.type">
+        <div *ngIf="!edit">
+          <p>Иду: {{userStatus.isGoing ? 'да' : 'нет'}}</p>
+          <p>Ищу команду: {{userStatus.isLookingForTeam ? 'да' : 'нет'}}</p>
+          <a (click)="edit = true">Редактировать</a>
+        </div>
+        <div *ngIf="edit" class="edit-status-form">
+          <mat-slide-toggle [(ngModel)]="userStatus.isGoing" color="primary">Пойду</mat-slide-toggle>
+          <mat-slide-toggle [(ngModel)]="userStatus.isLookingForTeam" color="primary">Ищу команду</mat-slide-toggle>
+          <button mat-raised-button (click)="saveStatus()">Сохранить</button>
+        </div>
+      </div>
+      <p>
+        <button mat-raised-button>Участники</button>
+      </p>
+    </div>
+    <div class="info-block">
+      <H2>{{itEvent.name}}, {{itEvent.eventType.toLowerCase()}}</H2>
+      <div class="info-header">
+        <h4>Информация</h4>
+      </div>
+      <div class="info-row">
+        <div>Дата проведения:</div>
+        <div>{{itEvent.startDate.toLocaleDateString()}}</div>
+      </div>
+      <div class="info-row">
+        <div>Город проведения: </div>
+        <div>{{itEvent.city}}</div>
+      </div>
+      <div class="info-row">
+        <div>Призовой фонд: </div>
+        <div>{{itEvent.prize}}</div>
+      </div>
+      <div class="info-row">
+        <div>Описание: </div>
+        <div><textarea id="event-description" readonly rows="10">{{itEvent.info}}</textarea></div>
+      </div>
+    </div>
+  </div>
+</div>

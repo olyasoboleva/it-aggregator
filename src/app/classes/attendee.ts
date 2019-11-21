@@ -8,4 +8,5 @@ export class Attendee {
   surname: string;
   email: string;
   info: string;
+  image: File;
 }

@@ -14,10 +14,6 @@ export class AuthenticationService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue() {
-    return this.currentUserSubject.value;
-  }
-
   login(username, password) {
     return this.http.post<any>(`${environment.API_URL}/auth/auth`, { username, password }, {observe: 'response' as 'body'})
       .pipe(map(resp => {

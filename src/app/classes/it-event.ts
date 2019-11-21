@@ -1,9 +1,11 @@
 export class ItEvent {
 
-  event_id: number;
+  eventId: string;
   name: string;
-  type: string;
-  start_date: string;
+  eventType: string;
+  startDate: Date;
   city: string;
   info: string;
+  prize: string;
+  maxMemQuantity: number;
 }
