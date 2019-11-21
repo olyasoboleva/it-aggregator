@@ -1,7 +1,7 @@
 <div class="container">
   <div class="box">
     <div>
-      <p><img src="https://en.meming.world/images/en/thumb/6/6e/Surprised_Pikachu.jpg/300px-Surprised_Pikachu.jpg" width="200" height="200" alt=""></p>
+      <p><img [src]="imgUrl" alt=""></p>
       <div class="user-status" *ngIf="currentUser && currentUser.type">
         <div *ngIf="!edit">
           <p>Иду: {{userStatus.isGoing ? 'да' : 'нет'}}</p>

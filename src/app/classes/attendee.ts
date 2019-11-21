@@ -7,6 +7,6 @@ export class Attendee {
   name: string;
   surname: string;
   email: string;
-  info: string;
+  skills: string;
   image: File;
 }

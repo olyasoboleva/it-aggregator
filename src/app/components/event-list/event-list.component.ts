@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {CheckboxItem} from '../../classes/checkbox-item';
 import {forEach} from '@angular/router/src/utils/collection';
 import {EventService} from '../../_services/event.service';
+import {ImageService} from '../../_services/image.service';
 
 @Component({
   selector: 'app-event-list',
@@ -14,12 +15,14 @@ export class EventListComponent implements OnInit {
   events: ItEvent[];
   eventsFiltered: ItEvent[];
   cities = new Set();
+  urls = new Map();
   cityFilter: string;
   eventTypes: CheckboxItem[];
 
   constructor(
     private router: Router,
-    private eventService: EventService
+    private eventService: EventService,
+    private imageService: ImageService
   ) {
   }
 
@@ -33,7 +36,9 @@ export class EventListComponent implements OnInit {
         data.forEach(event => {
           event.startDate = new Date(event.startDate);
           event.eventType = this.eventService.eventTypeTr(event.eventType);
+          event.image = this.imageService.dataURItoBlob(event.image.toString());
           this.events.push(event);
+          this.urlForBlob(event.image, event.eventId);
         });
         this.events.forEach(event => this.cities.add(event.city));
         this.eventsFiltered = Array.from(this.events);
@@ -67,5 +72,13 @@ export class EventListComponent implements OnInit {
     } else {
       this.eventsFiltered = Array.from(tempEvents);
     }
+  }
+
+  urlForBlob(file: Blob, eventId: string): any {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = (_event) => {
+      this.urls.set(eventId, fileReader.result);
+    };
   }
 }

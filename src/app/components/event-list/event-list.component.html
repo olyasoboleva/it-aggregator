@@ -21,6 +21,7 @@
       <mat-card-title>{{event.name}}</mat-card-title>
       <mat-card-subtitle>{{event.eventType}}</mat-card-subtitle>
     </mat-card-header>
+    <div class="image"><img [src]="urls.get(event.eventId)" alt=""/></div>
     <mat-card-content>
       <p>Дата проведения: {{event.startDate.toLocaleDateString()}}</p>
       <p>Город: {{event.city}}</p>

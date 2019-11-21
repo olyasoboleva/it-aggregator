@@ -18,3 +18,8 @@
 .cardListItem {
   flex: 0 1 calc(33.3% - 32px);
 }
+
+img {
+  height: 320px;
+  width: 320px;
+}

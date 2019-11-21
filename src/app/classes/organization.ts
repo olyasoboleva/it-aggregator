@@ -6,6 +6,6 @@ export class Organization {
   name: string;
   phone: string;
   email: string;
-  details: string;
+  info: string;
   image: Blob;
 }

@@ -13,7 +13,7 @@
         <button mat-stroked-button (click)="fileInput.click()">Загрузить фотографию</button>
       </p>
     </div>
-    <div class="info-block">
+    <div class="info-block" *ngIf="!edit">
       <H2>{{organization.name}}</H2>
       <div class="info-header">
         <h4>Информация</h4>
@@ -23,18 +23,44 @@
         <div>{{organization.phone}}</div>
       </div>
       <div class="info-row">
-        <div>"Электронная почта": </div>
+        <div>Email: </div>
         <div>{{organization.email}}</div>
       </div>
       <div class="info-row">
         <div>Описание: </div>
-        <div><textarea id="event-description" readonly="!edit" rows="10">{{organization.details}}</textarea></div>
+        <div><textarea id="event-description" readonly rows="10">{{organization.info}}</textarea></div>
       </div>
+    </div>
+    <div>
+      <form [formGroup]="orgForm" *ngIf="edit" class="info-block">
+        <H2>{{organization.name}}</H2>
+        <div class="info-header">
+          <h4>Информация</h4>
+        </div>
+        <div class="info-row">
+          <div>Телефон:</div>
+          <mat-form-field>
+            <input matInput formControlName="phone" required [value]="organization.phone">
+          </mat-form-field>
+        </div>
+        <div class="info-row">
+          <div>Email:</div>
+          <mat-form-field>
+            <input matInput formControlName="email" required [value]="organization.email" email="true">
+          </mat-form-field>
+        </div>
+        <div class="info-row">
+          <div>Описание:</div>
+          <mat-form-field>
+            <input matInput formControlName="info" required [value]="organization.info">
+          </mat-form-field>
+        </div>
+      </form>
     </div>
   </div>
   <p *ngIf="edit">
     <button mat-raised-button (click)="cancel()">Отменить</button>
-    <button mat-raised-button>Сохранить</button>
+    <button mat-raised-button (click)="submit()">Сохранить</button>
   </p>
 </div>
 

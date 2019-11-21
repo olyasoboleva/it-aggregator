@@ -45,14 +45,14 @@ export class SignupComponent implements OnInit {
       orgName: ['', Validators.required],
       email: ['', Validators.required],
       phone: ['', Validators.required],
-      details: ['']
+      info: ['']
     });
 
     this.attForm = this.formBuilder.group({
       surname: ['', Validators.required],
       name: ['', Validators.required],
       email: ['', Validators.required],
-      info: ['']
+      skills: ['']
     });
 
     this.authForm = this.formBuilder.group({
@@ -78,7 +78,7 @@ export class SignupComponent implements OnInit {
       this.attendee.name = this.attForm.get('name').value;
       this.attendee.surname = this.attForm.get('surname').value;
       this.attendee.email = this.attForm.get('email').value;
-      this.attendee.info = this.attForm.get('info').value;
+      this.attendee.skills = this.attForm.get('skills').value;
     } else {
       if (this.orgForm.invalid) {
         return;
@@ -86,7 +86,7 @@ export class SignupComponent implements OnInit {
       this.organization.name = this.orgForm.get('orgName').value;
       this.organization.phone = this.orgForm.get('phone').value;
       this.organization.email = this.orgForm.get('email').value;
-      this.organization.details = this.orgForm.get('details').value;
+      this.organization.info = this.orgForm.get('info').value;
     }
   }
 
