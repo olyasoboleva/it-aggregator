@@ -7,7 +7,6 @@ import { appRoutingModule } from './app.routing';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-import {AttendeeProfileComponent} from './components/attendee-profile/attendee-profile.component';
 import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {
@@ -25,17 +24,18 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { EventDetailsComponent } from './components/event-details/event-details.component';
 import 'hammerjs';
 import { OrganizationProfileComponent } from './components/organization-profile/organization-profile.component';
+import { AttendeeProfileComponent } from './components/attendee-profile/attendee-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    AttendeeProfileComponent,
     HeaderComponent,
     EventListComponent,
     EventDetailsComponent,
     OrganizationProfileComponent,
+    AttendeeProfileComponent,
   ],
   imports: [
     BrowserModule,

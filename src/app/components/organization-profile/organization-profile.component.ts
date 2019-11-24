@@ -13,6 +13,7 @@ export class OrganizationProfileComponent implements OnInit {
   organization: Organization;
   imgUrl: any;
   newImage: Blob;
+  image: Blob;
   edit: boolean;
   orgForm: FormGroup;
 
@@ -23,13 +24,12 @@ export class OrganizationProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // TODO: remove id from params
-    this.orgService.orgProfile('2063a4d0-0af1-4310-8398-819c9772dcbf').subscribe(
+    this.orgService.orgProfile().subscribe(
       (data: Organization) => {
-        // data.image = this.imageService.dataToFile(data.image.toString());
-        data.image = this.imageService.dataURItoBlob(data.image.toString());
-        this.organization = data;
-        this.updateUrlForBlob(this.organization.image);
+        this.image = this.imageService.dataURItoBlob(data.image.toString());
+        this.organization = new Organization();
+        this.organization.setFields(data);
+        this.updateUrlForBlob(this.image);
       }
     );
     this.orgForm = this.formBuilder.group({
@@ -49,7 +49,7 @@ export class OrganizationProfileComponent implements OnInit {
 
   cancel() {
     this.edit = false;
-    this.updateUrlForBlob(this.organization.image);
+    this.updateUrlForBlob(this.image);
   }
 
   submit() {
@@ -60,9 +60,17 @@ export class OrganizationProfileComponent implements OnInit {
     this.organization.phone = this.orgForm.get('phone').value;
     this.organization.email = this.orgForm.get('email').value;
     this.organization.info = this.orgForm.get('info').value;
-    this.organization.image = this.newImage;
+    if (this.newImage !== undefined ) {
+      this.image = this.newImage;
+    }
     // check return code
-    // this.orgService.updateOrganization(this.organization);
+    const reader = new FileReader();
+    reader.readAsDataURL(this.image);
+    reader.onload = (_event) => {
+      this.organization.image = reader.result.toString().split('base64,')[1];
+      console.log(this.organization);
+      this.orgService.updateOrganization(this.organization).subscribe();
+    };
   }
 
   updateUrlForBlob(file: Blob): any {
@@ -71,5 +79,10 @@ export class OrganizationProfileComponent implements OnInit {
     fileReader.onload = (_event) => {
       this.imgUrl = fileReader.result;
     };
+  }
+
+  editMode() {
+    this.edit = true;
+    this.orgForm.setValue({phone: this.organization.phone, email: this.organization.email, info: this.organization.info});
   }
 }

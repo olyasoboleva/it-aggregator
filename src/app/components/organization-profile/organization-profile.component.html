@@ -3,7 +3,7 @@
     <div>
       <p><img [src]="imgUrl"/></p>
       <p *ngIf="!edit">
-        <button mat-raised-button (click)="edit = true">Редактировать</button>
+        <button mat-raised-button (click)="editMode()">Редактировать</button>
       </p>
       <p *ngIf="edit">
         <input
@@ -28,7 +28,7 @@
       </div>
       <div class="info-row">
         <div>Описание: </div>
-        <div><textarea id="event-description" readonly rows="10">{{organization.info}}</textarea></div>
+        <div><textarea id="org-description" readonly rows="10">{{organization.info}}</textarea></div>
       </div>
     </div>
     <div>
@@ -40,19 +40,19 @@
         <div class="info-row">
           <div>Телефон:</div>
           <mat-form-field>
-            <input matInput formControlName="phone" required [value]="organization.phone">
+            <input matInput formControlName="phone" required>
           </mat-form-field>
         </div>
         <div class="info-row">
           <div>Email:</div>
           <mat-form-field>
-            <input matInput formControlName="email" required [value]="organization.email" email="true">
+            <input matInput formControlName="email" required email="true">
           </mat-form-field>
         </div>
         <div class="info-row">
           <div>Описание:</div>
           <mat-form-field>
-            <input matInput formControlName="info" required [value]="organization.info">
+            <input matInput formControlName="info">
           </mat-form-field>
         </div>
       </form>

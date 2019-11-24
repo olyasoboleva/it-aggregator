@@ -7,11 +7,15 @@ import {Organization} from '../classes/organization';
 export class OrganizationService {
   constructor(private http: HttpClient) { }
 
-  orgProfile(id: string) {
+  getOrg(id: string) {
     return this.http.get<Organization>(`${environment.API_URL}/event/organization/`.concat(id));
   }
 
+  orgProfile() {
+    return this.http.get<Organization>(`${environment.API_URL}/event/organization/profile`);
+  }
+
   updateOrganization(org: Organization) {
-    return this.http.patch<Organization>(`${environment.API_URL}/update/organization`, org);
+    return this.http.post(`${environment.API_URL}/event/update/organization`, org);
   }
 }

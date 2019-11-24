@@ -2,11 +2,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { AttendeeProfileComponent } from './components/attendee-profile/attendee-profile.component';
 import {AuthGuard} from './_helpers/auth.guard';
 import {EventListComponent} from './components/event-list/event-list.component';
 import {EventDetailsComponent} from './components/event-details/event-details.component';
 import {OrganizationProfileComponent} from './components/organization-profile/organization-profile.component';
+import {AttendeeProfileComponent} from './components/attendee-profile/attendee-profile.component';
 
 const routes: Routes = [
   { path: 'attendee-profile', component: AttendeeProfileComponent, canActivate: [AuthGuard] },

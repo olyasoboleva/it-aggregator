@@ -7,5 +7,13 @@ export class Organization {
   phone: string;
   email: string;
   info: string;
-  image: Blob;
+  image: string;
+
+  setFields(json: any) {
+    this.id = json.organizationId;
+    this.name = json.name;
+    this.email = json.email;
+    this.phone = json.phone;
+    this.info = json.info;
+  }
 }

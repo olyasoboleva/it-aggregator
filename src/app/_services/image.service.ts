@@ -4,6 +4,20 @@ import {Injectable} from '@angular/core';
 export class ImageService {
   constructor() { }
 
+  dataToFile(imageBlob: Blob): File {
+    // Naming the image
+    const date = new Date().valueOf();
+    let text = '';
+    const possibleText = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 5; i++) {
+      text += possibleText.charAt(Math.floor(Math.random() * possibleText.length));
+    }
+    // Replace extension according to your media type
+    const imageName = date + '.' + text + '.jpeg';
+    // call method that creates a blob from dataUri
+    return new File([imageBlob], imageName, {type: 'image/jpeg'});
+  }
+
   dataURItoBlob(dataURI): Blob {
     const byteString = window.atob(dataURI);
     const arrayBuffer = new ArrayBuffer(byteString.length);
