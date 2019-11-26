@@ -5,6 +5,8 @@ import {AuthenticationService} from '../../_services/authentication.service';
 import {EventService} from '../../_services/event.service';
 import {UserEventStatus} from '../../classes/user-event-status';
 import {ImageService} from '../../_services/image.service';
+import {ParticipantService} from '../../_services/participant.service';
+import {Participant} from '../../classes/participant';
 
 @Component({
   selector: 'app-event-details',
@@ -22,7 +24,8 @@ export class EventDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
     private eventService: EventService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private participantService: ParticipantService
   ) { }
 
   ngOnInit() {
@@ -35,15 +38,35 @@ export class EventDetailsComponent implements OnInit {
           data.image = this.imageService.dataURItoBlob(data.image.toString());
           this.updateUrlForBlob(data.image);
           this.itEvent = data;
+          if (this.currentUser.type) {
+            this.userStatus = new UserEventStatus();
+            this.participantService.getStatus(this.itEvent.eventId).subscribe(
+              (participant: Participant) => {
+                if (participant === null) {
+                  this.userStatus.isGoing = false; this.userStatus.isLookingForTeam = false;
+                } else {
+                  this.userStatus.isGoing = true;
+                  this.userStatus.isLookingForTeam = participant.teamNeed;
+                }
+              }
+            );
+          }
         }
       );
     });
-    this.userStatus = new UserEventStatus(); this.userStatus.isGoing = false; this.userStatus.isLookingForTeam = false;
   }
 
   saveStatus() {
     this.edit = false;
-    // запрос на бэк
+    if (!this.userStatus.isGoing) {
+      this.participantService.deleteStatus(this.itEvent.eventId).subscribe();
+    } else {
+      const participant = new Participant();
+      participant.eventId = new ItEvent();
+      participant.teamNeed = this.userStatus.isLookingForTeam;
+      participant.eventId.eventId = this.itEvent.eventId;
+      this.participantService.updateStatus(participant).subscribe();
+    }
   }
 
   updateUrlForBlob(file: Blob): any {
@@ -54,4 +77,9 @@ export class EventDetailsComponent implements OnInit {
     };
   }
 
+  dropStatus() {
+    if (this.userStatus.isGoing) {
+      this.userStatus.isLookingForTeam = false;
+    }
+  }
 }

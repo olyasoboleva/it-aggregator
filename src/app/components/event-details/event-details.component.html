@@ -9,8 +9,8 @@
           <a (click)="edit = true">Редактировать</a>
         </div>
         <div *ngIf="edit" class="edit-status-form">
-          <mat-slide-toggle [(ngModel)]="userStatus.isGoing" color="primary">Пойду</mat-slide-toggle>
-          <mat-slide-toggle [(ngModel)]="userStatus.isLookingForTeam" color="primary">Ищу команду</mat-slide-toggle>
+          <mat-slide-toggle [(ngModel)]="userStatus.isGoing" (click)="dropStatus()" color="primary">Пойду</mat-slide-toggle>
+          <mat-slide-toggle [(ngModel)]="userStatus.isLookingForTeam" [disabled]="!userStatus.isGoing" color="primary">Ищу команду</mat-slide-toggle>
           <button mat-raised-button (click)="saveStatus()">Сохранить</button>
         </div>
       </div>

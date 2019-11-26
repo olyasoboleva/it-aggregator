@@ -3,7 +3,7 @@ import {User} from './user';
 export class Attendee {
 
   user: User;
-  id: number;
+  id: string;
   name: string;
   surname: string;
   email: string;
