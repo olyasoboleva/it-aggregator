@@ -1,0 +1,38 @@
+.main {
+  width: 1200px;
+  overflow: hidden;
+}
+
+button {
+  width: 100%
+}
+
+.chat {
+  border: #757575 1px solid;
+  margin: 5px;
+  padding: 5px;
+  background: white;
+}
+
+.chat div {
+  display: inline-block;
+  vertical-align: top;
+  font-size: medium;
+  background: white;
+}
+
+.msg-content {
+  width: 70%;
+}
+
+.msg-sender {
+  width: 20%;
+}
+
+.msg-time {
+  width: 10%;
+}
+
+.msg-time p {
+  font-size: 10pt;
+}

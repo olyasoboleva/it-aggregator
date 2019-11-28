@@ -108,5 +108,4 @@ export class ParticipantListComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

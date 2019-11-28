@@ -1,3 +1,18 @@
-<p>
-  chat-list works!
-</p>
+<div class="main">
+  <p><button mat-raised-button color="primary" (click)="createChat()">Новый чат</button></p>
+  <div>
+    <div class="chat" *ngFor="let chat of chats" [routerLink]="['/chat', chat.chatId]">
+      <h4><a [routerLink]="['/chat', chat.chatId]">{{chat.name}}</a></h4>
+      <div class="msg-sender">
+        {{chat.lastMessage.sender}}:
+      </div>
+      <div class="msg-content">
+        {{chat.lastMessage.content}}
+      </div>
+      <div class="msg-time">
+        <p *ngIf="chat.lastMessage.messageDate < today">{{chat.lastMessage.messageDate | date:'dd.MM.yyyy'}}</p>
+        <p *ngIf="chat.lastMessage.messageDate >= today">{{chat.lastMessage.messageDate | date:'HH.mm.ss'}}</p>
+      </div>
+    </div>
+  </div>
+</div>

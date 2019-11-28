@@ -9,6 +9,7 @@ import {OrganizationProfileComponent} from './components/organization-profile/or
 import {AttendeeProfileComponent} from './components/attendee-profile/attendee-profile.component';
 import {EventCreationComponent} from './components/event-creation/event-creation.component';
 import {ChatListComponent} from './components/chat-list/chat-list.component';
+import {ChatComponent} from './components/chat/chat.component';
 
 const routes: Routes = [
   { path: 'attendee-profile', component: AttendeeProfileComponent, canActivate: [AuthGuard] },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'event/:id', component: EventDetailsComponent},
   { path: 'create-event', component: EventCreationComponent},
   { path: 'chat-list', component: ChatListComponent},
+  { path: 'chat/:id', component: ChatComponent},
 
   // otherwise redirect to home
   { path: '**', redirectTo: 'event-list' }

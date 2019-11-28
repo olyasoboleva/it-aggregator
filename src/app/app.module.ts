@@ -26,7 +26,7 @@ import 'hammerjs';
 import { OrganizationProfileComponent } from './components/organization-profile/organization-profile.component';
 import { AttendeeProfileComponent } from './components/attendee-profile/attendee-profile.component';
 import { EventCreationComponent } from './components/event-creation/event-creation.component';
-import { ChatListComponent } from './components/chat-list/chat-list.component';
+import {ChatCreationComponent, ChatListComponent} from './components/chat-list/chat-list.component';
 import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
@@ -42,7 +42,8 @@ import { ChatComponent } from './components/chat/chat.component';
     ParticipantListComponent,
     EventCreationComponent,
     ChatListComponent,
-    ChatComponent
+    ChatComponent,
+    ChatCreationComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +69,7 @@ import { ChatComponent } from './components/chat/chat.component';
   ],
   entryComponents: [
     ParticipantListComponent,
+    ChatCreationComponent,
   ],
   providers: [
     MatDatepickerModule,
