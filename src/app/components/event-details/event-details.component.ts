@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ItEvent} from '../../classes/it-event';
 import {AuthenticationService} from '../../_services/authentication.service';
@@ -7,6 +7,7 @@ import {UserEventStatus} from '../../classes/user-event-status';
 import {ImageService} from '../../_services/image.service';
 import {ParticipantService} from '../../_services/participant.service';
 import {Participant} from '../../classes/participant';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-event-details',
@@ -25,7 +26,8 @@ export class EventDetailsComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private eventService: EventService,
     private imageService: ImageService,
-    private participantService: ParticipantService
+    private participantService: ParticipantService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -33,10 +35,10 @@ export class EventDetailsComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.eventService.getEvent(params.get('id')).subscribe(
         (data: ItEvent) => {
-          data.eventType = this.eventService.eventTypeTr(data.eventType);
+          data.eventType = this.eventService.eventTypeEngRu(data.eventType);
           data.startDate = new Date(data.startDate);
-          data.image = this.imageService.dataURItoBlob(data.image.toString());
-          this.updateUrlForBlob(data.image);
+          data.imageBlob = this.imageService.dataURItoBlob(data.image.toString());
+          this.updateUrlForBlob(data.imageBlob);
           this.itEvent = data;
           if (this.currentUser.type) {
             this.userStatus = new UserEventStatus();
@@ -56,7 +58,7 @@ export class EventDetailsComponent implements OnInit {
     });
   }
 
-  saveStatus() {
+  saveStatus(): void {
     this.edit = false;
     if (!this.userStatus.isGoing) {
       this.participantService.deleteStatus(this.itEvent.eventId).subscribe();
@@ -77,9 +79,34 @@ export class EventDetailsComponent implements OnInit {
     };
   }
 
-  dropStatus() {
+  dropStatus(): void {
     if (this.userStatus.isGoing) {
       this.userStatus.isLookingForTeam = false;
     }
   }
+
+  openParticipantList() {
+    const dialogRef = this.dialog.open(ParticipantListComponent, {
+      width: '400px',
+      height: '600px',
+      data: {eventId: this.itEvent.eventId}
+    });
+  }
+}
+
+@Component({
+  selector: 'app-participant-list',
+  templateUrl: './participant-list-component.html',
+})
+export class ParticipantListComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<ParticipantListComponent>,
+    @Inject(MAT_DIALOG_DATA) public eventId: string
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

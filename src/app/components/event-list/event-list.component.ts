@@ -35,10 +35,10 @@ export class EventListComponent implements OnInit {
       (data: ItEvent[]) => {
         data.forEach(event => {
           event.startDate = new Date(event.startDate);
-          event.eventType = this.eventService.eventTypeTr(event.eventType);
-          event.image = this.imageService.dataURItoBlob(event.image.toString());
+          event.eventType = this.eventService.eventTypeEngRu(event.eventType);
+          event.imageBlob = this.imageService.dataURItoBlob(event.image.toString());
           this.events.push(event);
-          this.urlForBlob(event.image, event.eventId);
+          this.urlForBlob(event.imageBlob, event.eventId);
         });
         this.events.forEach(event => this.cities.add(event.city));
         this.eventsFiltered = Array.from(this.events);

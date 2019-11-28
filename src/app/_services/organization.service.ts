@@ -16,6 +16,6 @@ export class OrganizationService {
   }
 
   updateOrganization(org: Organization) {
-    return this.http.post(`${environment.API_URL}/event/update/organization`, org);
+    return this.http.patch(`${environment.API_URL}/event/update/organization`, org);
   }
 }

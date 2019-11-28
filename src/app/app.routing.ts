@@ -7,6 +7,8 @@ import {EventListComponent} from './components/event-list/event-list.component';
 import {EventDetailsComponent} from './components/event-details/event-details.component';
 import {OrganizationProfileComponent} from './components/organization-profile/organization-profile.component';
 import {AttendeeProfileComponent} from './components/attendee-profile/attendee-profile.component';
+import {EventCreationComponent} from './components/event-creation/event-creation.component';
+import {ChatListComponent} from './components/chat-list/chat-list.component';
 
 const routes: Routes = [
   { path: 'attendee-profile', component: AttendeeProfileComponent, canActivate: [AuthGuard] },
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'event-list', component: EventListComponent },
   { path: 'event/:id', component: EventDetailsComponent},
+  { path: 'create-event', component: EventCreationComponent},
+  { path: 'chat-list', component: ChatListComponent},
 
   // otherwise redirect to home
   { path: '**', redirectTo: 'event-list' }

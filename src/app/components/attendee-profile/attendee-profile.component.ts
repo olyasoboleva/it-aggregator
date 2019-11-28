@@ -62,7 +62,6 @@ export class AttendeeProfileComponent implements OnInit {
     if (this.newImage !== undefined ) {
       this.image = this.newImage;
     }
-    // check return code
     const reader = new FileReader();
     reader.readAsDataURL(this.image);
     reader.onload = (_event) => {

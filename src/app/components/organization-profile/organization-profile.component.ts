@@ -68,7 +68,6 @@ export class OrganizationProfileComponent implements OnInit {
     reader.readAsDataURL(this.image);
     reader.onload = (_event) => {
       this.organization.image = reader.result.toString().split('base64,')[1];
-      console.log(this.organization);
       this.orgService.updateOrganization(this.organization).subscribe();
     };
   }

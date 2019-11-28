@@ -11,20 +11,23 @@ import {JwtInterceptor} from './_helpers/jwt.interceptor';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
-  MatCardModule, MatCheckboxModule, MatChipsModule,
+  MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule,
+  MatInputModule, MatNativeDateModule,
   MatRadioModule, MatSelectModule, MatSlideToggleModule,
   MatStepperModule
 } from '@angular/material';
 import { HeaderComponent } from './components/header/header.component';
 import { EventListComponent } from './components/event-list/event-list.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { EventDetailsComponent } from './components/event-details/event-details.component';
+import {EventDetailsComponent, ParticipantListComponent} from './components/event-details/event-details.component';
 import 'hammerjs';
 import { OrganizationProfileComponent } from './components/organization-profile/organization-profile.component';
 import { AttendeeProfileComponent } from './components/attendee-profile/attendee-profile.component';
+import { EventCreationComponent } from './components/event-creation/event-creation.component';
+import { ChatListComponent } from './components/chat-list/chat-list.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,10 @@ import { AttendeeProfileComponent } from './components/attendee-profile/attendee
     EventDetailsComponent,
     OrganizationProfileComponent,
     AttendeeProfileComponent,
+    ParticipantListComponent,
+    EventCreationComponent,
+    ChatListComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -54,10 +61,17 @@ import { AttendeeProfileComponent } from './components/attendee-profile/attendee
     MatSelectModule,
     FormsModule,
     MatCheckboxModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
+  entryComponents: [
+    ParticipantListComponent,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    MatDatepickerModule,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

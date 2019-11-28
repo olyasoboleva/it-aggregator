@@ -15,12 +15,25 @@ export class EventService {
     return this.http.get<ItEvent>(`${environment.API_URL}/event/get/event/`.concat(id));
   }
 
-  eventTypeTr(engType: string): string {
+  eventTypeEngRu(engType: string): string {
     switch (engType) {
       case 'Hackathon': return 'Хакатон';
       case 'Olympiad': return 'Олимпиада';
       case 'Lecture': return 'Лекция';
       case 'Conference': return 'Конференция';
     }
+  }
+
+  eventTypeRuEng(ruType: string): string {
+    switch (ruType) {
+      case 'Хакатон': return 'Hackathon';
+      case 'Олимпиада': return 'Olympiad';
+      case 'Лекция': return 'Lecture';
+      case 'Конференция': return 'Conference';
+    }
+  }
+
+  createEvent(event: ItEvent) {
+    return this.http.post(`${environment.API_URL}/event/save/event`, event);
   }
 }

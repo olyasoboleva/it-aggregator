@@ -8,5 +8,6 @@ export class ItEvent {
   info: string;
   prize: string;
   maxMemQuantity: number;
-  image: Blob;
+  image: string;
+  imageBlob: Blob;
 }

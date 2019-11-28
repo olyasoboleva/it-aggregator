@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
           if (error.status === 401) {
             this.error = 'Неверные имя пользователя или пароль';
           } else {
-            this.error = error.error;
+            this.error = 'Ошибка сервера!';
           }
           this.loading = false;
         });

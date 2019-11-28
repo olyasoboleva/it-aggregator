@@ -12,7 +12,7 @@
     </div>
     <div *ngIf="currentUser && !currentUser.type">
       <a routerLink="/event-list">Мероприятия</a>
-      <a routerLink="/">Создать мероприятие</a>
+      <a routerLink="/create-event">Создать мероприятие</a>
       <a routerLink="/organization-profile">Профиль</a>
       <a (click)="logout()">Выйти</a>
     </div>
