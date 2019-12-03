@@ -40,6 +40,7 @@ export class EventDetailsComponent implements OnInit {
           data.imageBlob = this.imageService.dataURItoBlob(data.image.toString());
           this.updateUrlForBlob(data.imageBlob);
           this.itEvent = data;
+          this.itEvent.eventId = params.get('id');
           if (this.currentUser.type) {
             this.userStatus = new UserEventStatus();
             this.participantService.getStatus(this.itEvent.eventId).subscribe(

@@ -10,4 +10,6 @@ export class ItEvent {
   maxMemQuantity: number;
   image: string;
   imageBlob: Blob;
+  organizationId: string;
+  organizationName: string;
 }

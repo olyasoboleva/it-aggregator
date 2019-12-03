@@ -36,6 +36,10 @@
         <div>{{itEvent.prize}}</div>
       </div>
       <div class="info-row">
+        <div>Организатор: </div>
+        <div><a [routerLink]="['/organization-profile', itEvent.organizationId]">{{itEvent.organizationName}}</a></div>
+      </div>
+      <div class="info-row">
         <div>Описание: </div>
         <div><textarea id="event-description" readonly rows="10">{{itEvent.info}}</textarea></div>
       </div>

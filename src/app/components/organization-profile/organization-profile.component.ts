@@ -3,6 +3,7 @@ import {Organization} from '../../classes/organization';
 import {ImageService} from '../../_services/image.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {OrganizationService} from '../../_services/organization.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-organization-profile',
@@ -16,22 +17,39 @@ export class OrganizationProfileComponent implements OnInit {
   image: Blob;
   edit: boolean;
   orgForm: FormGroup;
+  isCurrentUserProfile: boolean;
 
   constructor(
+    private route: ActivatedRoute,
     private imageService: ImageService,
     private orgService: OrganizationService,
     private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
-    this.orgService.orgProfile().subscribe(
-      (data: Organization) => {
-        this.image = this.imageService.dataURItoBlob(data.image.toString());
-        this.organization = new Organization();
-        this.organization.setFields(data);
-        this.updateUrlForBlob(this.image);
+    this.route.paramMap.subscribe(params => {
+      if (params.get('id') === null) {
+        this.isCurrentUserProfile = true;
+        this.orgService.orgProfile().subscribe(
+          (data: Organization) => {
+            this.image = this.imageService.dataURItoBlob(data.image.toString());
+            this.organization = new Organization();
+            this.organization.setFields(data);
+            this.updateUrlForBlob(this.image);
+          }
+        );
+      } else {
+        this.isCurrentUserProfile = false;
+        this.orgService.getOrg(params.get('id')).subscribe(
+          (data: Organization) => {
+            this.image = this.imageService.dataURItoBlob(data.image.toString());
+            this.organization = new Organization();
+            this.organization.setFields(data);
+            this.updateUrlForBlob(this.image);
+          }
+        );
       }
-    );
+    });
     this.orgForm = this.formBuilder.group({
       email: ['', Validators.required],
       phone: ['', Validators.required],

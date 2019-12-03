@@ -18,4 +18,8 @@ export class AttendeeService {
   updateAttendee(att: Attendee) {
     return this.http.post(`${environment.API_URL}/chat/update/attendee`, att);
   }
+
+  getAttId() {
+    return this.http.get(`${environment.API_URL}/chat/attendee/id`, {responseType: 'text'});
+  }
 }

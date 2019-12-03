@@ -1,8 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ChatInfo} from '../../classes/chat-info';
-import {MatDialog, MatDialogRef} from '@angular/material';
-import {Attendee} from '../../classes/attendee';
-import {AttendeeShort} from '../../classes/attendee-short';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {AttendeeService} from '../../_services/attendee.service';
+import * as Stomp from 'stompjs';
+import * as SockJS from 'sockjs-client';
+import {ChatCreationComponent} from '../chat-creation/chat-creation.component';
+import {environment} from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-chat-list',
@@ -12,14 +16,18 @@ import {AttendeeShort} from '../../classes/attendee-short';
 export class ChatListComponent implements OnInit {
   chats: ChatInfo[];
   today: Date;
+  currentAttendeeId: string;
+  stompClient: any;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+    private attendeeService: AttendeeService) { }
 
   ngOnInit() {
-    this.chats = [{name: 'kek', chatId: 'qwe', lastMessage: {sender: 'Оля Соболева',
-        content: 'Ср(о|а)ки горят', messageDate: new Date(2018, 11, 30, 10, 0, 0, 0)}},
-      {name: 'lol', chatId: 'rty', lastMessage: {sender: 'Оля Соболева',
-          content: 'Памагити', messageDate: new Date(2018, 11, 30, 10, 0, 0, 0)}}];
+    this.attendeeService.getAttId().subscribe( data => {
+      this.currentAttendeeId = data.substr(1, data.length - 2);
+      // ws connection
+      this.connect();
+    });
     this.today = new Date();
     this.today.setHours(0, 0, 0, 0);
   }
@@ -27,35 +35,42 @@ export class ChatListComponent implements OnInit {
   createChat(): void {
     const dialogRef = this.dialog.open(ChatCreationComponent, {
       width: '300px',
-      height: '400px'
+      height: '400px',
+      data: {currentAttendeeId: this.currentAttendeeId, stompClient: this.stompClient}
     });
   }
-}
 
-@Component({
-  selector: 'app-chat-creation',
-  templateUrl: './chat-creation.component.html',
-})
-export class ChatCreationComponent implements OnInit {
-  friends: AttendeeShort[];
-  message: string;
-
-  constructor(
-    public dialogRef: MatDialogRef<ChatCreationComponent>
-  ) {
+  // websocket
+  connect() {
+    console.log('Initialize WebSocket Connection');
+    const ws = new SockJS(`${environment.API_URL}/ws`);
+    this.stompClient = Stomp.over(ws);
+    const that = this;
+    that.stompClient.connect({}, function (frame) {
+      that.stompClient.subscribe('/queue/chats/'.concat(that.currentAttendeeId), function (sdkEvent) {
+        that.onMessageReceived(sdkEvent);
+      });
+    }, this.errorCallBack);
   }
 
-  ngOnInit(): void {
-    // request
-    this.friends = [{attendeeId: 'qwe', fullName: 'Иван Иванов'}, {attendeeId: 'rty', fullName: 'Петр Петров'},
-      {attendeeId: 'uio', fullName: 'Леонардо Ди Каприо'}];
+  disconnect() {
+    if (this.stompClient !== null) {
+      this.stompClient.disconnect();
+    }
+    console.log('Disconnected');
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  // on error, schedule a reconnection attempt
+  errorCallBack(error) {
+    console.log('errorCallBack -> ' + error);
+    setTimeout(() => {
+      this.connect();
+    }, 5000);
   }
 
-  onSubmit(): void {
-    // request
+  onMessageReceived(message) {
+    console.log('Message Recieved from Server :: ' + message);
+    // some actions
   }
+
 }

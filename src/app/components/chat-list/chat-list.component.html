@@ -4,14 +4,18 @@
     <div class="chat" *ngFor="let chat of chats" [routerLink]="['/chat', chat.chatId]">
       <h4><a [routerLink]="['/chat', chat.chatId]">{{chat.name}}</a></h4>
       <div class="msg-sender">
-        {{chat.lastMessage.sender}}:
+        {{chat.messageList[chat.messageList.length-1].sender}}:
       </div>
       <div class="msg-content">
-        {{chat.lastMessage.content}}
+        {{chat.messageList[chat.messageList.length-1].content}}
       </div>
       <div class="msg-time">
-        <p *ngIf="chat.lastMessage.messageDate < today">{{chat.lastMessage.messageDate | date:'dd.MM.yyyy'}}</p>
-        <p *ngIf="chat.lastMessage.messageDate >= today">{{chat.lastMessage.messageDate | date:'HH.mm.ss'}}</p>
+        <p *ngIf="chat.messageList[chat.messageList.length-1].messageDate < today">
+          {{chat.messageList[chat.messageList.length-1].messageDate | date:'dd.MM.yyyy'}}
+        </p>
+        <p *ngIf="chat.messageList[chat.messageList.length-1].messageDate >= today">
+          {{chat.messageList[chat.messageList.length-1].messageDate | date:'HH.mm.ss'}}
+        </p>
       </div>
     </div>
   </div>

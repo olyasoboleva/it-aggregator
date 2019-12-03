@@ -12,7 +12,7 @@ export class EventService {
   }
 
   getEvent(id: string) {
-    return this.http.get<ItEvent>(`${environment.API_URL}/event/get/event/`.concat(id));
+    return this.http.get<ItEvent>(`${environment.API_URL}/event/eventDto/`.concat(id));
   }
 
   eventTypeEngRu(engType: string): string {

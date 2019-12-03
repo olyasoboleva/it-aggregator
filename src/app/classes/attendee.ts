@@ -3,7 +3,7 @@ import {User} from './user';
 export class Attendee {
 
   user: User;
-  id: string;
+  attendeeId: string;
   name: string;
   surname: string;
   email: string;
@@ -11,7 +11,7 @@ export class Attendee {
   image: string;
 
   setFields(json: any) {
-    this.id = json.attendeeId;
+    this.attendeeId = json.attendeeId;
     this.name = json.name;
     this.surname = json.surname;
     this.email = json.email;

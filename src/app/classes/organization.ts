@@ -2,7 +2,7 @@ import {User} from './user';
 
 export class Organization {
   user: User;
-  id: string;
+  organizationId: string;
   name: string;
   phone: string;
   email: string;
@@ -10,7 +10,7 @@ export class Organization {
   image: string;
 
   setFields(json: any) {
-    this.id = json.organizationId;
+    this.organizationId = json.organizationId;
     this.name = json.name;
     this.email = json.email;
     this.phone = json.phone;

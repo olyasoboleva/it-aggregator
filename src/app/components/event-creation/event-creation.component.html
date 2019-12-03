@@ -3,7 +3,7 @@
     style="display: none"
     type="file" (change)="onFileChanged($event)"
     #fileInput>
-  <button mat-stroked-button (click)="fileInput.click()">Загрузить фотографию</button>
+  <button mat-stroked-button (click)="fileInput.click()" [color]="picButtonColor">Загрузить фотографию</button>
   {{imgMessage}}
   <form [formGroup]="eventForm">
     <p>

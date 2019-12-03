@@ -26,8 +26,9 @@ import 'hammerjs';
 import { OrganizationProfileComponent } from './components/organization-profile/organization-profile.component';
 import { AttendeeProfileComponent } from './components/attendee-profile/attendee-profile.component';
 import { EventCreationComponent } from './components/event-creation/event-creation.component';
-import {ChatCreationComponent, ChatListComponent} from './components/chat-list/chat-list.component';
+import {ChatListComponent} from './components/chat-list/chat-list.component';
 import { ChatComponent } from './components/chat/chat.component';
+import {ChatCreationComponent} from './components/chat-creation/chat-creation.component';
 
 @NgModule({
   declarations: [

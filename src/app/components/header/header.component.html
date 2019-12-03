@@ -1,7 +1,6 @@
 <nav>
   <div class="header-right">
     <div *ngIf="!currentUser">
-      <a routerLink="/event-list">Мероприятия</a>
       <a (click)="logout()">Вход</a>
     </div>
     <div *ngIf="currentUser && currentUser.type">

@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ItEvent} from '../../classes/it-event';
 import {EventService} from '../../_services/event.service';
+import {DateAdapter} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-event-creation',
   templateUrl: './event-creation.component.html',
-  styleUrls: ['./event-creation.component.css']
+  styleUrls: ['./event-creation.component.css'],
 })
 export class EventCreationComponent implements OnInit {
   eventForm: FormGroup;
@@ -14,12 +16,16 @@ export class EventCreationComponent implements OnInit {
   types: string[];
   imgMessage: string;
   today: Date;
+  picButtonColor: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private eventService: EventService) { }
+    private eventService: EventService,
+    private dateAdapter: DateAdapter<any>,
+    private router: Router) { }
 
   ngOnInit() {
+    this.dateAdapter.setLocale('ru');
     this.itEvent = new ItEvent();
     this.types = ['Хакатон', 'Олимпиада', 'Лекция', 'Конференция'];
     this.today = new Date();
@@ -37,6 +43,7 @@ export class EventCreationComponent implements OnInit {
   }
 
   onFileChanged(event): void {
+    this.picButtonColor = '';
     if (event.target.files[0].type.match(/image\/*/) == null) {
       return;
     }
@@ -44,8 +51,12 @@ export class EventCreationComponent implements OnInit {
     this.imgMessage = event.target.files[0].name;
   }
 
-  onClick() {
-    if (this.eventForm.invalid || this.imgMessage === 'Выберите изображение') {
+  onClick(): void {
+    if (this.eventForm.invalid) {
+      return;
+    }
+    if (this.imgMessage === 'Выберите изображение') {
+      this.picButtonColor = 'warn';
       return;
     }
     this.itEvent.name = this.eventForm.get('name').value;
@@ -58,7 +69,9 @@ export class EventCreationComponent implements OnInit {
     reader.readAsDataURL(this.itEvent.imageBlob);
     reader.onload = (_event) => {
       this.itEvent.image = reader.result.toString().split('base64,')[1];
-      this.eventService.createEvent(this.itEvent).subscribe();
+      this.eventService.createEvent(this.itEvent).subscribe( data =>
+        this.router.navigate(['/event-list'])
+      );
     };
   }
 

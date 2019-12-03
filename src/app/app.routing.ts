@@ -12,15 +12,17 @@ import {ChatListComponent} from './components/chat-list/chat-list.component';
 import {ChatComponent} from './components/chat/chat.component';
 
 const routes: Routes = [
-  { path: 'attendee-profile', component: AttendeeProfileComponent, canActivate: [AuthGuard] },
-  { path: 'organization-profile', component: OrganizationProfileComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'event-list', component: EventListComponent },
-  { path: 'event/:id', component: EventDetailsComponent},
-  { path: 'create-event', component: EventCreationComponent},
-  { path: 'chat-list', component: ChatListComponent},
-  { path: 'chat/:id', component: ChatComponent},
+  {path: 'attendee-profile', component: AttendeeProfileComponent},
+  {path: 'attendee-profile/:id', component: AttendeeProfileComponent},
+  {path: 'organization-profile', component: OrganizationProfileComponent},
+  {path: 'organization-profile/:id', component: OrganizationProfileComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'signup', component: SignupComponent},
+  {path: 'event-list', component: EventListComponent},
+  {path: 'event/:id', component: EventDetailsComponent},
+  {path: 'create-event', component: EventCreationComponent},
+  {path: 'chat-list', component: ChatListComponent, canActivate: [AuthGuard]},
+  {path: 'chat/:id', component: ChatComponent},
 
   // otherwise redirect to home
   { path: '**', redirectTo: 'event-list' }

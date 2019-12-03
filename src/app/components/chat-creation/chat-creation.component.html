@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Новый чат</h1>
+<div mat-dialog-content>
+  <form [formGroup]="chatForm">
+    <mat-form-field>
+      <input matInput placeholder="Название чата" formControlName="name" required>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Участники</mat-label>
+      <mat-select multiple formControlName="selection">
+        <mat-option *ngFor="let friend of friends" [value]="friend.attendeeId">{{friend.fullName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput formControlName="message" mat-autosize matAutosizeMinRows="4" matAutosizeMaxRows="5"
+                placeholder="Первое сообщение" required></textarea>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onSubmit()">Создать</button>
+  <button mat-button (click)="onNoClick()">Закрыть</button>
+</div>
