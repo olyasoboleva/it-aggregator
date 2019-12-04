@@ -1,0 +1,55 @@
+.main {
+  width: 1200px;
+  overflow: hidden;
+}
+
+.chat {
+  border: #757575 1px solid;
+  height: 700px;
+  overflow-y: auto;
+  background: white;
+  position: relative;
+}
+
+.chatName {
+  background: #a3a3a3;
+  border: #757575 2px solid;
+}
+
+textarea {
+  width: 97%;
+}
+
+.toBottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.message {
+  padding: 5px;
+  background: white;
+}
+
+.message div {
+  display: inline-block;
+  vertical-align: top;
+  font-size: medium;
+}
+
+.msg-content {
+  width: 70%;
+  word-wrap: break-word;
+}
+
+.msg-sender {
+  width: 20%;
+}
+
+.msg-time {
+  width: 10%;
+}
+
+.msg-time p {
+  font-size: 10pt;
+}

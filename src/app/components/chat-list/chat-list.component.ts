@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {ChatInfo} from '../../classes/chat-info';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {AttendeeService} from '../../_services/attendee.service';
@@ -13,7 +13,7 @@ import {environment} from '../../../environments/environment';
   templateUrl: './chat-list.component.html',
   styleUrls: ['./chat-list.component.css']
 })
-export class ChatListComponent implements OnInit {
+export class ChatListComponent implements OnInit, OnDestroy {
   chats: ChatInfo[];
   today: Date;
   currentAttendeeId: string;
@@ -22,7 +22,7 @@ export class ChatListComponent implements OnInit {
   constructor(public dialog: MatDialog,
     private attendeeService: AttendeeService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.attendeeService.getAttId().subscribe( data => {
       this.currentAttendeeId = data.substr(1, data.length - 2);
       // ws connection
@@ -30,6 +30,10 @@ export class ChatListComponent implements OnInit {
     });
     this.today = new Date();
     this.today.setHours(0, 0, 0, 0);
+  }
+
+  ngOnDestroy(): void {
+    this.disconnect();
   }
 
   createChat(): void {

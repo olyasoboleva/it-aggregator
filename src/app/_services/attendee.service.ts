@@ -16,7 +16,7 @@ export class AttendeeService {
   }
 
   updateAttendee(att: Attendee) {
-    return this.http.post(`${environment.API_URL}/chat/update/attendee`, att);
+    return this.http.patch(`${environment.API_URL}/chat/update/attendee`, att);
   }
 
   getAttId() {

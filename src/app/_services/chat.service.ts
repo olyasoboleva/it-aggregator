@@ -9,4 +9,12 @@ export class ChatService {
   createChat() {
     return this.http.get(`${environment.API_URL}/chat/attendee/profile`);
   }
+
+  getUserCompany() {
+    return this.http.get(`${environment.API_URL}/chat/attendee/company`);
+  }
+
+  getLastMessages(chatId: string) {
+    return this.http.get(`${environment.API_URL}/chat/message/`.concat(chatId));
+  }
 }

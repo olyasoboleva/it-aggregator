@@ -24,18 +24,23 @@ export class ChatCreationComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {
   }
 
-  ngOnInit(): void {
-    // request
+  ngOnInit() {
     this.chat = new ChatInfo();
-    this.friends = [{attendeeId: 'qwe', fullName: 'Иван Иванов'}, {attendeeId: 'rty', fullName: 'Петр Петров'},
-      {attendeeId: 'uio', fullName: 'Леонардо Ди Каприо'}];
+    this.friends = [];
+    let attendee;
+    this.chatService.getUserCompany().subscribe( data => {
+      Object.keys(data).forEach(key => {
+        attendee = new AttendeeShort();
+        attendee.attendeeId = key;
+        attendee.fullName = data[key];
+        this.friends.push(attendee);
+      });
+    });
     this.chatForm = this.formBuilder.group({
       name: ['', Validators.required],
-      // selection: ['', Validators.required],
-      selection: [''],
+      selection: ['', Validators.required],
       message: ['', Validators.required]
     });
-    console.log(this.data);
   }
 
   onNoClick(): void {
