@@ -1,11 +1,12 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
-import {ChatInfo} from '../../classes/chat-info';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material';
 import {AttendeeService} from '../../_services/attendee.service';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import {ChatCreationComponent} from '../chat-creation/chat-creation.component';
 import {environment} from '../../../environments/environment';
+import {ChatService} from '../../_services/chat.service';
+import {ChatMessage} from '../../classes/chat-message';
 
 
 @Component({
@@ -14,19 +15,29 @@ import {environment} from '../../../environments/environment';
   styleUrls: ['./chat-list.component.css']
 })
 export class ChatListComponent implements OnInit, OnDestroy {
-  chats: ChatInfo[];
+  chatMessages: Map<string, ChatMessage>;
+  chatMessagesValues: ChatMessage[];
   today: Date;
   currentAttendeeId: string;
   stompClient: any;
 
   constructor(public dialog: MatDialog,
+    private chatService: ChatService,
     private attendeeService: AttendeeService) { }
 
   ngOnInit(): void {
+    this.chatMessages = new Map<string, ChatMessage>();
+    let message;
     this.attendeeService.getAttId().subscribe( data => {
       this.currentAttendeeId = data.substr(1, data.length - 2);
-      // ws connection
-      this.connect();
+      this.chatService.getAllChats().subscribe(( messages: ChatMessage[]) => {
+        messages.forEach(mes => {
+          message = this.getNewMessage(mes);
+          this.chatMessages.set(message.chatId.chatId, message);
+        });
+        this.sortByDate();
+        this.connect();
+      });
     });
     this.today = new Date();
     this.today.setHours(0, 0, 0, 0);
@@ -72,9 +83,23 @@ export class ChatListComponent implements OnInit, OnDestroy {
     }, 5000);
   }
 
-  onMessageReceived(message) {
+  onMessageReceived(message): void {
     console.log('Message Recieved from Server :: ' + message);
-    // some actions
+    const mes = JSON.parse(message.body);
+    const newMessage = this.getNewMessage(mes);
+    this.chatMessages.set(newMessage.chatId.chatId, newMessage);
+    this.sortByDate();
   }
 
+  getNewMessage(mes: any): ChatMessage {
+    const newMessage = new ChatMessage(mes.sender, mes.content, new Date(mes.messageDate));
+      newMessage.chatId = mes.chatId;
+    return newMessage;
+  }
+
+  sortByDate(): void {
+    this.chatMessagesValues = Array.from(this.chatMessages.values()).sort((m1, m2) => {
+      return new Date(m2.messageDate).getTime() - new Date(m1.messageDate).getTime();
+    });
+  }
 }

@@ -1,20 +1,20 @@
 <div class="main">
   <p><button mat-raised-button color="primary" (click)="createChat()">Новый чат</button></p>
   <div>
-    <div class="chat" *ngFor="let chat of chats" [routerLink]="['/chat', chat.chatId]">
-      <h4><a [routerLink]="['/chat', chat.chatId]">{{chat.name}}</a></h4>
+    <div class="chat" *ngFor="let mes of chatMessagesValues" [routerLink]="['/chat', mes.chatId.chatId]">
+      <h4><a [routerLink]="['/chat', mes.chatId.chatId]">{{mes.chatId.name}}</a></h4>
       <div class="msg-sender">
-        {{chat.messageList[chat.messageList.length-1].sender}}:
+        {{mes.sender}}:
       </div>
       <div class="msg-content">
-        {{chat.messageList[chat.messageList.length-1].content}}
+        {{mes.content.length > 80 ? mes.content.substr(0, 80).concat('...') : mes.content}}
       </div>
       <div class="msg-time">
-        <p *ngIf="chat.messageList[chat.messageList.length-1].messageDate < today">
-          {{chat.messageList[chat.messageList.length-1].messageDate | date:'dd.MM.yyyy'}}
+        <p *ngIf="mes.messageDate < today">
+          {{mes.messageDate | date:'dd.MM.yyyy'}}
         </p>
-        <p *ngIf="chat.messageList[chat.messageList.length-1].messageDate >= today">
-          {{chat.messageList[chat.messageList.length-1].messageDate | date:'HH.mm.ss'}}
+        <p *ngIf="mes.messageDate >= today">
+          {{mes.messageDate | date:'HH:mm:ss'}}
         </p>
       </div>
     </div>

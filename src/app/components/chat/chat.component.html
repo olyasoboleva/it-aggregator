@@ -1,28 +1,30 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div class="main">
   <div>
-    <div class="chatName>">
-      <h4>{{chat.name}}</h4>
+    <div class="chatName">
+      <h3>{{chat.name}}</h3>
     </div>
     <div class="chat">
       <div class="toBottom">
-        <div class="message" *ngFor="let message of chat.messageList">
-          <div class="msg-sender">
-            {{message.sender}}:
-          </div>
-          <div class="msg-content">
-            {{message.content}}
-          </div>
-          <div class="msg-time">
-            <p *ngIf="message.messageDate < today">
-              {{message.messageDate | date:'dd.MM.yyyy'}}
-            </p>
-            <p *ngIf="message.messageDate >= today">
-              {{message.messageDate | date:'HH.mm.ss'}}
-            </p>
+        <div class="messages-block" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+          <div class="message" *ngFor="let message of chat.messageList">
+            <div class="msg-sender">
+              {{message.sender}}:
+            </div>
+            <div class="msg-content">
+              {{message.content}}
+            </div>
+            <div class="msg-time">
+              <p *ngIf="message.messageDate < today">
+                {{message.messageDate | date:'dd.MM.yyyy'}}
+              </p>
+              <p *ngIf="message.messageDate >= today">
+                {{message.messageDate | date:'HH:mm:ss'}}
+              </p>
+            </div>
           </div>
         </div>
-        <textarea matInput mat-autosize matAutosizeMinRows="2" matAutosizeMaxRows="8"
+        <textarea matInput mat-autosize matAutosizeMinRows="3" matAutosizeMaxRows="3"
                   placeholder="Сообщение" [(ngModel)]="messageContent" (keydown)="pressEnter($event)"></textarea>
         <mat-icon (click)="send()">send</mat-icon>
       </div>

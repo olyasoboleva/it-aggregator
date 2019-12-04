@@ -6,18 +6,30 @@
 .chat {
   border: #757575 1px solid;
   height: 700px;
-  overflow-y: auto;
   background: white;
   position: relative;
 }
 
 .chatName {
-  background: #a3a3a3;
-  border: #757575 2px solid;
+  background: #bbbbbb;
+  border: #757575 1px solid;
+  padding: 10px;
 }
 
 textarea {
-  width: 97%;
+  width: 96%;
+  margin: 5px;
+}
+
+mat-icon {
+  position: absolute;
+  bottom: 25px;
+}
+
+.messages-block {
+  display: block;
+  overflow-y: scroll;
+  height: 620px;
 }
 
 .toBottom {

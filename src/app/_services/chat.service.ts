@@ -17,4 +17,8 @@ export class ChatService {
   getLastMessages(chatId: string) {
     return this.http.get(`${environment.API_URL}/chat/message/`.concat(chatId));
   }
+
+  getAllChats() {
+    return this.http.get(`${environment.API_URL}/chat/attendees/chats`);
+  }
 }

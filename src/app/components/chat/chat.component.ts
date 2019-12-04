@@ -26,7 +26,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // 8ce8b671-a0af-426f-906e-2e411d446d09
     this.chat = new ChatInfo(); this.chat.messageList = [];
     let message;
     this.route.paramMap.subscribe(params => {
@@ -88,7 +87,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   send() {
-    if (this.messageContent === '') {
+    if (this.messageContent === undefined) {
       return;
     }
     const message = new ChatMessage(this.currentAttendeeId, this.messageContent, new Date());
