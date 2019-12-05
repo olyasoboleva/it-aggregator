@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Новое сообщение</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+      <input matInput placeholder="Название чата" [(ngModel)]="chatName" [disabled]="isExisting">
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput [(ngModel)]="content" mat-autosize matAutosizeMinRows="8" matAutosizeMaxRows="8"
+                placeholder="Сообщение"></textarea>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onSubmit()">Отправить</button>
+  <button mat-button (click)="onNoClick()">Закрыть</button>
+</div>

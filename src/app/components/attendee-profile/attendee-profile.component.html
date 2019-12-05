@@ -2,7 +2,10 @@
   <div class="box">
     <div>
       <p><img [src]="imgUrl"/></p>
-      <p *ngIf="!edit">
+      <p *ngIf="!isCurrentUserProfile && currentUser.type">
+        <button mat-raised-button (click)="writeMessage()">Написать</button>
+      </p>
+      <p *ngIf="!edit && isCurrentUserProfile">
         <button mat-raised-button (click)="editMode()">Редактировать</button>
       </p>
       <p *ngIf="edit">

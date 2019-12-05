@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import {ChatShort} from '../classes/chat-short';
 
 @Injectable({ providedIn: 'root' })
 export class ChatService {
@@ -20,5 +21,10 @@ export class ChatService {
 
   getAllChats() {
     return this.http.get(`${environment.API_URL}/chat/attendees/chats`);
+  }
+
+  checkChat(receiverId: string) {
+    const params = new HttpParams().set('receiverId', receiverId);
+    return this.http.get<ChatShort>(`${environment.API_URL}/chat/chat/check`, {params});
   }
 }

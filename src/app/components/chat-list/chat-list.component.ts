@@ -48,7 +48,7 @@ export class ChatListComponent implements OnInit, OnDestroy {
   }
 
   createChat(): void {
-    const dialogRef = this.dialog.open(ChatCreationComponent, {
+    this.dialog.open(ChatCreationComponent, {
       width: '300px',
       height: '400px',
       data: {currentAttendeeId: this.currentAttendeeId, stompClient: this.stompClient}

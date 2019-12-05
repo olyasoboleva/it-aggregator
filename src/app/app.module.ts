@@ -29,6 +29,8 @@ import { EventCreationComponent } from './components/event-creation/event-creati
 import {ChatListComponent} from './components/chat-list/chat-list.component';
 import { ChatComponent } from './components/chat/chat.component';
 import {ChatCreationComponent} from './components/chat-creation/chat-creation.component';
+import {ErrorInterceptor} from './_helpers/error.interceptor';
+import { DialogCreationComponent } from './components/dialog-creation/dialog-creation.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import {ChatCreationComponent} from './components/chat-creation/chat-creation.co
     ChatListComponent,
     ChatComponent,
     ChatCreationComponent,
+    DialogCreationComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,10 +74,12 @@ import {ChatCreationComponent} from './components/chat-creation/chat-creation.co
   entryComponents: [
     ParticipantListComponent,
     ChatCreationComponent,
+    DialogCreationComponent
   ],
   providers: [
     MatDatepickerModule,
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
