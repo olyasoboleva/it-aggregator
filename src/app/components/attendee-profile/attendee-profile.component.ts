@@ -50,7 +50,7 @@ export class AttendeeProfileComponent implements OnInit {
       } else {
         this.isCurrentUserProfile = false;
         this.attendeeId = params.get('id');
-        this.attService.getAtt(params.get('id')).subscribe(
+        this.attService.getAttendeeByUserId(params.get('id')).subscribe(
           (data: Attendee) => {
             this.image = this.imageService.dataURItoBlob(data.image.toString());
             this.attendee = new Attendee();
@@ -115,7 +115,7 @@ export class AttendeeProfileComponent implements OnInit {
     this.dialog.open(DialogCreationComponent, {
       width: '300px',
       height: '400px',
-      data: {receiverId: this.attendeeId}
+      data: {receiverId: this.attendee.attendeeId}
     });
   }
 }

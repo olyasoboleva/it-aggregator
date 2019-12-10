@@ -62,11 +62,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate([this.returnUrl]);
         },
         error => {
-          if (error.status === 401) {
-            this.error = 'Неверные имя пользователя или пароль';
-          } else {
-            this.error = 'Ошибка сервера!';
-          }
+          this.error = 'Неверный логин или пароль';
           this.loading = false;
         });
   }

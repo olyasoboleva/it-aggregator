@@ -14,10 +14,6 @@
   vertical-align: top;
 }
 
-.user-status {
-  border: 1px solid black;
-}
-
 .user-status * {
   display: block;
 }
@@ -53,6 +49,32 @@
 img {
   height: 300px;
   width: 300px;
+}
+
+.participants {
+  width: 250px;
+}
+
+.participant-row {
+  font-size: 14pt;
+  border-bottom: #848484 1px solid;
+  width: 95%
+}
+
+.participant-row div {
+  display: inline-block;
+}
+
+.fullname {
+  width: 90%
+}
+
+.fullname a {
+  color: black;
+}
+
+.team-icon {
+  width: 10%;
 }
 
 

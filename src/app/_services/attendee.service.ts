@@ -22,4 +22,8 @@ export class AttendeeService {
   getAttId() {
     return this.http.get(`${environment.API_URL}/chat/attendee/id`, {responseType: 'text'});
   }
+
+  getAttendeeByUserId(userId) {
+    return this.http.get(`${environment.API_URL}/chat/attendee/from_user/`.concat(userId));
+  }
 }

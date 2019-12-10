@@ -89,7 +89,7 @@ export class EventDetailsComponent implements OnInit {
   openParticipantList() {
     const dialogRef = this.dialog.open(ParticipantListComponent, {
       width: '400px',
-      height: '600px',
+      height: '400px',
       data: {eventId: this.itEvent.eventId}
     });
   }
@@ -98,13 +98,21 @@ export class EventDetailsComponent implements OnInit {
 @Component({
   selector: 'app-participant-list',
   templateUrl: './participant-list-component.html',
+  styleUrls: ['./event-details.component.css']
 })
-export class ParticipantListComponent {
-
+export class ParticipantListComponent implements OnInit {
+  participants: Participant[];
   constructor(
     public dialogRef: MatDialogRef<ParticipantListComponent>,
-    @Inject(MAT_DIALOG_DATA) public eventId: string
+    private eventService: EventService,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
+
+  ngOnInit(): void {
+    this.eventService.getParticipants(this.data.eventId).subscribe( (data: Participant[]) => {
+      this.participants = data;
+    });
+  }
 
   onNoClick(): void {
     this.dialogRef.close();

@@ -109,7 +109,15 @@ export class SignupComponent implements OnInit {
           if (error.error === 'User already exists') {
             this.error = 'Пользователь с такими логином уже существует';
           } else {
-            this.error = 'Ошибка сервера!';
+            if (error.error.includes('email in use')) {
+              this.error = 'Пользователь с такими email уже существует';
+            } else {
+              if (error.error.includes('orgName in use')) {
+                this.error = 'Организация с такими именем уже существует';
+              } else {
+                this.error = 'Ошибка сервера!';
+              }
+            }
           }
         });
   }

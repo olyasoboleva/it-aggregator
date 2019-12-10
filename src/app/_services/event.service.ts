@@ -15,6 +15,10 @@ export class EventService {
     return this.http.get<ItEvent>(`${environment.API_URL}/event/eventDto/`.concat(id));
   }
 
+  getParticipants(eventId) {
+    return this.http.get(`${environment.API_URL}/event/eventDto/`.concat(eventId, '/participants'));
+  }
+
   eventTypeEngRu(engType: string): string {
     switch (engType) {
       case 'Hackathon': return 'Хакатон';

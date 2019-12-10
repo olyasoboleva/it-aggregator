@@ -32,7 +32,9 @@ export class DialogCreationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.attendeeService.getAttId().subscribe( data => this.currentAttendeeId = data.substr(1, data.length - 2));
+    this.attendeeService.getAttId().subscribe( data => {
+      this.currentAttendeeId = data.substr(1, data.length - 2);
+    });
     this.chatService.checkChat(this.data.receiverId).subscribe( (data: ChatShort) => {
       if (data !== null) {
         this.existingChat = data;

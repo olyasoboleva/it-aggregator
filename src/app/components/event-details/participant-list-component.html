@@ -1,7 +1,11 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <h1 mat-dialog-title>Участники мероприятия</h1>
-<div mat-dialog-content>
-  <p>Скоро здесь будет лист учатников</p>
-</div>
-<div mat-dialog-actions>
+<mat-dialog-content>
+  <div *ngFor="let participant of participants" class="participant-row">
+    <div class="fullname"><a [routerLink]="['/attendee-profile', participant.userId]" (click)="onNoClick()">{{participant.fullName}}</a></div>
+    <div class="team-icon"><mat-icon *ngIf="participant.teamNeed">group_add</mat-icon></div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Закрыть</button>
-</div>
+</mat-dialog-actions>

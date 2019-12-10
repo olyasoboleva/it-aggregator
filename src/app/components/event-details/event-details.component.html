@@ -6,7 +6,7 @@
         <div *ngIf="!edit">
           <p>Иду: {{userStatus.isGoing ? 'да' : 'нет'}}</p>
           <p>Ищу команду: {{userStatus.isLookingForTeam ? 'да' : 'нет'}}</p>
-          <a (click)="edit = true">Редактировать</a>
+          <button mat-raised-button (click)="edit = true">Редактировать</button>
         </div>
         <div *ngIf="edit" class="edit-status-form">
           <mat-slide-toggle [(ngModel)]="userStatus.isGoing" (click)="dropStatus()" color="primary">Пойду</mat-slide-toggle>
@@ -14,9 +14,6 @@
           <button mat-raised-button (click)="saveStatus()">Сохранить</button>
         </div>
       </div>
-      <p>
-        <button mat-raised-button (click)="openParticipantList()">Участники</button>
-      </p>
     </div>
     <div class="info-block">
       <H2>{{itEvent.name}}, {{itEvent.eventType.toLowerCase()}}</H2>
@@ -43,6 +40,9 @@
         <div>Описание: </div>
         <div><textarea id="event-description" readonly rows="10">{{itEvent.info}}</textarea></div>
       </div>
+      <p>
+        <button mat-raised-button class="participants" (click)="openParticipantList()">Участники</button>
+      </p>
     </div>
   </div>
 </div>
