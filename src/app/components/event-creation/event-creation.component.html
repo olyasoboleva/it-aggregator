@@ -1,4 +1,5 @@
-<div>
+<div class="event-creation-form">
+  <h2>Новое мероприятие</h2>
   <input
     style="display: none"
     type="file" (change)="onFileChanged($event)"
@@ -40,12 +41,12 @@
     </p>
     <p>
       <mat-form-field>
-        <input matInput placeholder="Описание" formControlName="info" maxlength="256" #info>
-        <mat-hint align="end">{{info.value.length}} / 256</mat-hint>
+        <input matInput placeholder="Описание" formControlName="info" maxlength="255" #info>
+        <mat-hint align="end">{{info.value.length}} / 255</mat-hint>
       </mat-form-field>
     </p>
     <div>
-      <button mat-raised-button (click)="onClick()">Создать</button>
+      <button class="create-button" mat-raised-button (click)="onClick()">Создать</button>
     </div>
   </form>
 </div>

@@ -3,14 +3,14 @@
     <div>
       <p><img [src]="imgUrl"/></p>
       <p *ngIf="!edit && isCurrentUserProfile">
-        <button mat-raised-button (click)="editMode()">Редактировать</button>
+        <button class="edit-button" mat-raised-button (click)="editMode()">Редактировать</button>
       </p>
       <p *ngIf="edit">
         <input
           style="display: none"
           type="file" (change)="onFileChanged($event)"
           #fileInput>
-        <button mat-stroked-button (click)="fileInput.click()">Загрузить фотографию</button>
+        <button class="upload-button" mat-stroked-button (click)="fileInput.click()">Загрузить фотографию</button>
       </p>
     </div>
     <div class="info-block" *ngIf="!edit">
@@ -59,8 +59,8 @@
     </div>
   </div>
   <p *ngIf="edit">
-    <button mat-raised-button (click)="cancel()">Отменить</button>
-    <button mat-raised-button (click)="submit()">Сохранить</button>
+    <button class="cancel-button" mat-raised-button (click)="cancel()">Отменить</button>
+    <button class="save-button" mat-raised-button (click)="submit()">Сохранить</button>
   </p>
 </div>
 

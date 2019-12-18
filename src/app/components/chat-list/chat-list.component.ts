@@ -69,7 +69,7 @@ export class ChatListComponent implements OnInit, OnDestroy {
   }
 
   disconnect() {
-    if (this.stompClient !== null) {
+    if (this.stompClient !== undefined) {
       this.stompClient.disconnect();
     }
     console.log('Disconnected');

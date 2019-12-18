@@ -47,3 +47,11 @@ img {
   width: 300px;
 }
 
+.cancel-button, .save-button {
+  margin: 5px;
+  width: 140px;
+}
+
+.upload-button, .edit-button, .write-button {
+  width: 300px;
+}

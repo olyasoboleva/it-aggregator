@@ -1,0 +1,16 @@
+.login {
+  text-align: center;
+}
+
+.login-form {
+  padding: 30px;
+}
+
+button {
+  width: 270px;
+  border-radius: 10px;
+}
+
+mat-form-field {
+  width: 300px;
+}

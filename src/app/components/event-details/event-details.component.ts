@@ -54,6 +54,7 @@ export class EventDetailsComponent implements OnInit {
               }
             );
           }
+          console.log(this.itEvent  );
         }
       );
     });

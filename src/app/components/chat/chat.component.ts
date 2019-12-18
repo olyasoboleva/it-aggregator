@@ -14,11 +14,12 @@ import {AttendeeService} from '../../_services/attendee.service';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit, OnDestroy {
-  private chat: ChatInfo;
+  chat: ChatInfo;
   today: Date;
   stompClient: any;
   messageContent: string;
   currentAttendeeId: string;
+  avatars: Map<string, Avatar>;
 
   constructor(
     private chatService: ChatService,
@@ -28,6 +29,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.chat = new ChatInfo(); this.chat.messageList = [];
     let message;
+    this.avatars = new Map<string, Avatar>();
     this.route.paramMap.subscribe(params => {
       this.chatService.getLastMessages(params.get('id')).subscribe( (data: any[]) => {
         data.forEach(mes => {
@@ -35,6 +37,7 @@ export class ChatComponent implements OnInit, OnDestroy {
           this.chat.name = mes.chatId.name;
           message = new ChatMessage(mes.sender, mes.content, mes.messageDate);
           this.chat.messageList.push(message);
+          this.addAvatar(mes.sender);
         });
         this.chat.messageList.sort((mes1, mes2) => new Date(mes1.messageDate).getTime() - new Date(mes2.messageDate).getTime());
         this.connect();
@@ -65,7 +68,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   disconnect() {
-    if (this.stompClient !== null) {
+    if (this.stompClient !== undefined) {
       this.stompClient.disconnect();
     }
     console.log('Disconnected');
@@ -83,7 +86,18 @@ export class ChatComponent implements OnInit, OnDestroy {
     console.log('Message Recieved from Server :: ' + message.body);
     const m = JSON.parse(message.body);
     const mes = new ChatMessage(m.sender, m.content, new Date(m.messageDate));
+    this.addAvatar(m.sender);
     this.chat.messageList.push(mes);
+  }
+
+  addAvatar(fullName: string) {
+    const ava = new Avatar();
+    if (!this.avatars.has(fullName)) {
+      const space = fullName.indexOf(' ');
+      ava.initials = fullName.charAt(0) + fullName.charAt(space + 1);
+      ava.color = ava.getRandomColor();
+      this.avatars.set(fullName, ava);
+    }
   }
 
   send() {
@@ -104,5 +118,15 @@ export class ChatComponent implements OnInit, OnDestroy {
       event.preventDefault();
       this.send();
     }
+  }
+}
+
+class Avatar {
+  initials: string;
+  color: string;
+
+  getRandomColor(): string {
+    const color = Math.floor(0x1000000 * Math.random()).toString(16);
+    return '#' + color;
   }
 }

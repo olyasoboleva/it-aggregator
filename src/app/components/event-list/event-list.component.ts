@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ItEvent} from '../../classes/it-event';
 import {Router} from '@angular/router';
 import {CheckboxItem} from '../../classes/checkbox-item';
-import {forEach} from '@angular/router/src/utils/collection';
 import {EventService} from '../../_services/event.service';
 import {ImageService} from '../../_services/image.service';
 

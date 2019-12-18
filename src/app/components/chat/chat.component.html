@@ -9,17 +9,24 @@
         <div class="messages-block" #scrollMe [scrollTop]="scrollMe.scrollHeight">
           <div class="message" *ngFor="let message of chat.messageList">
             <div class="msg-sender">
-              {{message.sender}}:
+              <ngx-avatar [value]="avatars.get(message.sender).initials"
+                          round=true
+                          size="40"
+                          [bgColor]="avatars.get(message.sender).color"
+                          fgColor="black">
+              </ngx-avatar>
             </div>
             <div class="msg-content">
-              {{message.content}}
+              <div class="msg-content-area">
+                {{message.content}}
+              </div>
             </div>
             <div class="msg-time">
               <p *ngIf="message.messageDate < today">
                 {{message.messageDate | date:'dd.MM.yyyy'}}
               </p>
               <p *ngIf="message.messageDate >= today">
-                {{message.messageDate | date:'HH:mm:ss'}}
+                {{message.messageDate | date:'HH:mm'}}
               </p>
             </div>
           </div>
